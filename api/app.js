@@ -72,7 +72,7 @@ app.get('/api/localdata', (req, res) => {
 app.post('/api/localdata', (req, res) => {
 	const params = {
 		env: 'string',
-		local: 'string'
+		local: 'array'
 	}
 
 	let dataParams = constructData(req.body, params);
@@ -87,6 +87,60 @@ app.post('/api/localdata', (req, res) => {
 		res.end('{ "status": "file writed"}');
 	}
 })
+
+app.get('/api/envdata/:env', (req, res) => {
+	res.writeHead(200,{'Content-type': 'application/json'});
+
+	let enviroment = req.params.env;
+
+	let fileData = FileManager.readJson(`./files/env.${enviroment}.js`);
+	if (fileData.error) {
+		fileData.message = 'Enviroment not found!';
+	}
+	res.end(JSON.stringify(fileData));
+});
+
+app.post('/api/envdata/:env', (req, res) => {
+	const params = {
+		ip: 'string',
+		host: 'string',
+		comment: 'string'
+	}
+	let enviroment = req.params.env;
+
+	let dataParams = constructData(req.body, params);
+
+	let result = FileManager.writeJsonList(`./files/env.${enviroment}.js`, dataParams);
+
+	if (result.error) {
+		res.writeHead(500,{'Content-type': 'application/json'});
+		res.end(`{ "status": "${result.error}"}`);
+	} else {
+		res.writeHead(200,{'Content-type': 'application/json'});
+		res.end('{ "status": "file writed"}');
+	}
+});
+
+app.delete('/api/envdata/:env', (req, res) => {
+	const params = {
+		ip: 'string',
+		host: 'string',
+		comment: 'string'
+	}
+	let enviroment = req.params.env;
+
+	let dataParams = constructData(req.body, params);
+
+	let result = FileManager.deleteJsonList(`./files/env.${enviroment}.js`, dataParams);
+
+	if (result.error) {
+		res.writeHead(500,{'Content-type': 'application/json'});
+		res.end(`{ "status": "${result.error}"}`);
+	} else {
+		res.writeHead(200,{'Content-type': 'application/json'});
+		res.end('{ "status": "file writed"}');
+	}
+});
 
 server.listen(config.port, config.address, function(){
 	console.log('Server running at http://' + config.address + (config.port == 80 ? '' : ':'+config.port));

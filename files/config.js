@@ -1,1 +1,1 @@
-{"env":"deva","local":"teste"}
+{"env":"qa"}
