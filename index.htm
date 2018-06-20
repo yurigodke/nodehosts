@@ -54,10 +54,10 @@
       <h5 class="my-0 mr-md-auto font-weight-normal">NodeHosts</h5>
       <div class="dropdown mr-md-3">
         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ambiente</button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Dev</a>
-          <a class="dropdown-item" href="#">QA</a>
-          <a class="dropdown-item" href="#">Prod</a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="envSelect">
+          <button class="dropdown-item" type="button" value="dev">Dev</button>
+          <button class="dropdown-item" type="button" value="qa">QA</button>
+          <button class="dropdown-item" type="button" value="prod">Prod</button>
         </div>
       </div>
       <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">Adicionar host</button>
@@ -69,17 +69,7 @@
         <div class="col-4">Address</div>
         <div class="col-2"></div>
       </div>
-      <div class="row d-flex flex-column flex-md-row align-items-center p-3 border-bottom">
-        <div class="col-2 border-right">QA</div>
-        <div class="col-4 border-right">google.com</div>
-        <div class="col-4">127.0.0.1</div>
-        <div class="col-2"><button type="button" class="btn btn-secondary btn-block">Editar</button></div>
-      </div>
-      <div class="row d-flex flex-column flex-md-row align-items-center p-3">
-        <div class="col-2 border-right">QA</div>
-        <div class="col-4 border-right">google.com</div>
-        <div class="col-4">127.0.0.1</div>
-        <div class="col-2"><button type="button" class="btn btn-secondary btn-block">Editar</button></div>
+      <div id="hosts">
       </div>
     </div>
 
@@ -88,5 +78,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
     <script src="./dist/bundle.js" charset="utf-8"></script>
+    
+    <div id="hostBase" class="row d-flex flex-column flex-md-row align-items-center p-3 border-bottom">
+      <div class="col-2 border-right">QA</div>
+      <div class="col-4 border-right">google.com</div>
+      <div class="col-4">127.0.0.1</div>
+      <div class="col-2"><button type="button" class="btn btn-secondary btn-block">Editar</button></div>
+    </div>
   </body>
 </html>
