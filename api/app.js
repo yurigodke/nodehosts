@@ -71,8 +71,7 @@ app.get('/api/localdata', (req, res) => {
 
 app.post('/api/localdata', (req, res) => {
 	const params = {
-		env: 'string',
-		local: 'array'
+		env: 'string'
 	}
 
 	let dataParams = constructData(req.body, params);
@@ -121,17 +120,33 @@ app.post('/api/envdata/:env', (req, res) => {
 	}
 });
 
-app.delete('/api/envdata/:env', (req, res) => {
+app.put('/api/envdata/:env/:id', (req, res) => {
+	let enviroment = req.params.env;
+	let id = req.params.id;
 	const params = {
 		ip: 'string',
 		host: 'string',
 		comment: 'string'
-	}
-	let enviroment = req.params.env;
+	};
 
 	let dataParams = constructData(req.body, params);
 
-	let result = FileManager.deleteJsonList(`./files/env.${enviroment}.js`, dataParams);
+	let result = FileManager.editJsonList(`./files/env.${enviroment}.js`, id, dataParams);
+
+	if (result.error) {
+		res.writeHead(500,{'Content-type': 'application/json'});
+		res.end(`{ "status": "${result.error}"}`);
+	} else {
+		res.writeHead(200,{'Content-type': 'application/json'});
+		res.end('{ "status": "file writed"}');
+	}
+});
+
+app.delete('/api/envdata/:env/:id', (req, res) => {
+	let enviroment = req.params.env;
+	let id = req.params.id;
+
+	let result = FileManager.deleteJsonList(`./files/env.${enviroment}.js`, id);
 
 	if (result.error) {
 		res.writeHead(500,{'Content-type': 'application/json'});
