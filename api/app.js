@@ -7,6 +7,7 @@ const mime = require('mime');
 const server = http.createServer(app);
 const config = require('../api.conf.js');
 const FileManager = require('./class/FileManager.js');
+const HostManager = require('./class/HostManager.js');
 
 function constructData(data, options) {
 	var filterData = {};
@@ -82,6 +83,7 @@ app.post('/api/localdata', (req, res) => {
 		res.writeHead(500,{'Content-type': 'application/json'});
 		res.end(`{ "status": "${result.error}"}`);
 	} else {
+		HostManager.setHostData();
 		res.writeHead(200,{'Content-type': 'application/json'});
 		res.end('{ "status": "file writed"}');
 	}
@@ -115,6 +117,7 @@ app.post('/api/envdata/:env', (req, res) => {
 		res.writeHead(500,{'Content-type': 'application/json'});
 		res.end(`{ "status": "${result.error}"}`);
 	} else {
+		HostManager.setHostData();
 		res.writeHead(200,{'Content-type': 'application/json'});
 		res.end('{ "status": "file writed"}');
 	}
@@ -137,6 +140,7 @@ app.put('/api/envdata/:env/:id', (req, res) => {
 		res.writeHead(500,{'Content-type': 'application/json'});
 		res.end(`{ "status": "${result.error}"}`);
 	} else {
+		HostManager.setHostData();
 		res.writeHead(200,{'Content-type': 'application/json'});
 		res.end('{ "status": "file writed"}');
 	}
@@ -152,6 +156,7 @@ app.delete('/api/envdata/:env/:id', (req, res) => {
 		res.writeHead(500,{'Content-type': 'application/json'});
 		res.end(`{ "status": "${result.error}"}`);
 	} else {
+		HostManager.setHostData();
 		res.writeHead(200,{'Content-type': 'application/json'});
 		res.end('{ "status": "file writed"}');
 	}
